@@ -11,15 +11,15 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
+    - name: mastercollection
+      url-base: https://github.com/mastercollection
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
     - name: zmk-dongle-display
-      remote: englmaxi
+      remote: mastercollection
       revision: main # use 'v0.3' instead of 'main' if you use have pinned zmk to 'v0.3' or below
   self:
     path: config
@@ -35,7 +35,7 @@ include:
 ```
 
 This shield assumes that the [dongle](https://zmk.dev/docs/development/hardware-integration/dongle) is already set up and functioning with the built-in status screen.
-For setup examples, refer to the shields in my [`zmk-config`](https://github.com/englmaxi/zmk-config/tree/main/boards/shields).
+For setup examples, refer to the shields in my [`zmk-config`](https://github.com/mastercollection/zmk-config/tree/main/boards/shields).
 - If you are using the larger 1.3" OLED, replace `solomon,ssd1306fb` with `sinowealth,sh1106` and set `segment-offset = <2>`.
 - If you are using a nice!nano, replace `xiao_i2c` with `pro_micro_i2c`.
 - If you are using the smaller 0.91" OLED, replace `height = <64>;` by `height = <32>;`
@@ -116,8 +116,8 @@ CONFIG_LV_Z_VDB_SIZE=32
 ```
 
 ## Demo
-![output](https://github.com/englmaxi/zmk-config/assets/43675074/8d268f23-1a4f-44c3-817e-c36dc96a1f8b)
-![mods](https://github.com/englmaxi/zmk-config/assets/43675074/af9ec3f5-8f61-4629-abed-14ba0047f0bd)
+![output](https://github.com/mastercollection/zmk-config/assets/43675074/8d268f23-1a4f-44c3-817e-c36dc96a1f8b)
+![mods](https://github.com/mastercollection/zmk-config/assets/43675074/af9ec3f5-8f61-4629-abed-14ba0047f0bd)
 
 ## Dongle Designs
 - [case1](/cases)
