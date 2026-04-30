@@ -68,7 +68,7 @@ lv_obj_t *zmk_display_status_screen() {
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
     zmk_widget_dororong_init(&dororong_widget, screen);
-    lv_obj_align(zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -7);
+    lv_obj_align(zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -12);
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_MODIFIERS)
