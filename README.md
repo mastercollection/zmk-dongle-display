@@ -43,7 +43,7 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 ## Widgets
 - active hid indicators (CLCK, NLCK, SLCK)
 - active modifiers
-- bongo cat
+- dororong
 - highest layer name
 - output status
 - peripheral battery levels
@@ -101,10 +101,10 @@ CONFIG_ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS="layers" # comma separated
 
 ## Smaller OLEDs, with 128x32 pixels
 
-To allow smaller OLEDs, with 128x32 pixels, it will be necessary to exclude some widgets, like the bongo cat, active modifiers or the highest layer name. You can do it with the following config entries:
+To allow smaller OLEDs, with 128x32 pixels, it will be necessary to exclude some widgets, like dororong, active modifiers or the highest layer name. You can do it with the following config entries:
 
 ```ini
-CONFIG_ZMK_DONGLE_DISPLAY_BONGO_CAT=n
+CONFIG_ZMK_DONGLE_DISPLAY_DORORONG=n
 CONFIG_ZMK_DONGLE_DISPLAY_MODIFIERS=n
 CONFIG_ZMK_DONGLE_DISPLAY_LAYER=n
 ```

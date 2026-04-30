@@ -7,7 +7,7 @@
 #include "custom_status_screen.h"
 #include "widgets/battery_status.h"
 #include "widgets/modifiers.h"
-#include "widgets/bongo_cat.h"
+#include "widgets/dororong.h"
 #include "widgets/layer_status.h"
 #include "widgets/output_status.h"
 #include "widgets/hid_indicators.h"
@@ -34,8 +34,8 @@ static struct zmk_widget_hid_indicators hid_indicators_widget;
 
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_BONGO_CAT)
-static struct zmk_widget_bongo_cat bongo_cat_widget;
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
+static struct zmk_widget_dororong dororong_widget;
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_WPM)
@@ -66,9 +66,9 @@ lv_obj_t *zmk_display_status_screen() {
     lv_obj_align_to(zmk_widget_wpm_status_obj(&wpm_status_widget), zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_OUT_RIGHT_MID, 7, 0);
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_BONGO_CAT)
-    zmk_widget_bongo_cat_init(&bongo_cat_widget, screen);
-    lv_obj_align(zmk_widget_bongo_cat_obj(&bongo_cat_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -7);
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
+    zmk_widget_dororong_init(&dororong_widget, screen);
+    lv_obj_align(zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -7);
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_MODIFIERS)
@@ -82,8 +82,8 @@ lv_obj_t *zmk_display_status_screen() {
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_LAYER)
     zmk_widget_layer_status_init(&layer_status_widget, screen);
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_BONGO_CAT)
-    lv_obj_align_to(zmk_widget_layer_status_obj(&layer_status_widget), zmk_widget_bongo_cat_obj(&bongo_cat_widget), LV_ALIGN_BOTTOM_RIGHT, 0, 5);
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
+    lv_obj_align_to(zmk_widget_layer_status_obj(&layer_status_widget), zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, 5);
 #else
     lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -3);
 #endif

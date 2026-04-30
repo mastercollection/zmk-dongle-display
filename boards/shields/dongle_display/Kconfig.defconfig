@@ -25,8 +25,8 @@ config ZMK_DONGLE_DISPLAY_DONGLE_BATTERY
 config ZMK_DONGLE_DISPLAY_MAC_MODIFIERS
     bool "Use MacOS modifier symbols instead of the Windows symbols"
 
-config ZMK_DONGLE_DISPLAY_BONGO_CAT
-    bool "Display the Bongo Cat widget"
+config ZMK_DONGLE_DISPLAY_DORORONG
+    bool "Display the Dororong widget"
     default y
 
 config ZMK_DONGLE_DISPLAY_MODIFIERS
