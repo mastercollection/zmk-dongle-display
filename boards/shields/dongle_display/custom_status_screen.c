@@ -61,14 +61,18 @@ lv_obj_t *zmk_display_status_screen() {
     zmk_widget_output_status_init(&output_status_widget, screen);
     lv_obj_align(zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_TOP_LEFT, 0, 0);
 
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_WPM)
-    zmk_widget_wpm_status_init(&wpm_status_widget, screen);
-    lv_obj_align_to(zmk_widget_wpm_status_obj(&wpm_status_widget), zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_OUT_RIGHT_MID, 7, 0);
-#endif
-
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
     zmk_widget_dororong_init(&dororong_widget, screen);
-    lv_obj_align(zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -12);
+    lv_obj_align(zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -15);
+#endif
+
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_WPM)
+    zmk_widget_wpm_status_init(&wpm_status_widget, screen);
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
+    lv_obj_align_to(zmk_widget_wpm_status_obj(&wpm_status_widget), zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_OUT_TOP_RIGHT, 0, -2);
+#else
+    lv_obj_align_to(zmk_widget_wpm_status_obj(&wpm_status_widget), zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_OUT_RIGHT_MID, 7, 0);
+#endif
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_MODIFIERS)
