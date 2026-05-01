@@ -38,6 +38,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 #define BUFFER_SIZE LV_CANVAS_BUF_SIZE(BATTERY_CANVAS_WIDTH, BATTERY_CANVAS_HEIGHT, LV_COLOR_FORMAT_GET_BPP(LV_COLOR_FORMAT_L8), LV_DRAW_BUF_STRIDE_ALIGN)
 
 static sys_slist_t widgets = SYS_SLIST_STATIC_INIT(&widgets);
+static lv_style_t battery_label_style;
 
 struct battery_state {
     uint8_t source;
@@ -169,6 +170,9 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
 
     lv_obj_set_size(widget->obj, BATTERY_SOURCE_COUNT * BATTERY_SLOT_WIDTH, BATTERY_WIDGET_HEIGHT);
 
+    lv_style_init(&battery_label_style);
+    lv_style_set_text_letter_space(&battery_label_style, 0);
+
     for (int i = 0; i < BATTERY_SOURCE_COUNT; i++) {
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
         lv_obj_t *battery_label = lv_label_create(widget->obj);
@@ -177,6 +181,7 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
 
         lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, -(i * BATTERY_SLOT_WIDTH), 0);
         lv_obj_align_to(battery_label, image_canvas, LV_ALIGN_OUT_LEFT_MID, 0, 0);
+        lv_obj_add_style(battery_label, &battery_label_style, LV_PART_MAIN);
 
         lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
