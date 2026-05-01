@@ -26,14 +26,20 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
     #define SOURCE_OFFSET 0
 #endif
 
-#ifndef ZMK_SPLIT_BLE_PERIPHERAL_COUNT
-#  define ZMK_SPLIT_BLE_PERIPHERAL_COUNT 0
+#if defined(CONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS)
+#  define BATTERY_PERIPHERAL_COUNT CONFIG_ZMK_SPLIT_BLE_CENTRAL_PERIPHERALS
+#elif defined(ZMK_SPLIT_BLE_PERIPHERAL_COUNT)
+#  define BATTERY_PERIPHERAL_COUNT ZMK_SPLIT_BLE_PERIPHERAL_COUNT
+#else
+#  define BATTERY_PERIPHERAL_COUNT 0
 #endif
 
-#define BATTERY_SOURCE_COUNT (ZMK_SPLIT_BLE_PERIPHERAL_COUNT + SOURCE_OFFSET)
+#define BATTERY_SOURCE_COUNT (BATTERY_PERIPHERAL_COUNT + SOURCE_OFFSET)
 #define BATTERY_CANVAS_WIDTH 5
 #define BATTERY_CANVAS_HEIGHT 8
-#define BATTERY_SLOT_WIDTH 32
+#define BATTERY_LABEL_WIDTH 24
+#define BATTERY_ICON_GAP 3
+#define BATTERY_SLOT_WIDTH (BATTERY_LABEL_WIDTH + BATTERY_ICON_GAP + BATTERY_CANVAS_WIDTH)
 #define BATTERY_WIDGET_HEIGHT BATTERY_CANVAS_HEIGHT
 #define BUFFER_SIZE LV_CANVAS_BUF_SIZE(BATTERY_CANVAS_WIDTH, BATTERY_CANVAS_HEIGHT, LV_COLOR_FORMAT_GET_BPP(LV_COLOR_FORMAT_L8), LV_DRAW_BUF_STRIDE_ALIGN)
 
@@ -172,16 +178,20 @@ int zmk_widget_dongle_battery_status_init(struct zmk_widget_dongle_battery_statu
 
     lv_style_init(&battery_label_style);
     lv_style_set_text_letter_space(&battery_label_style, 0);
+    lv_style_set_text_line_space(&battery_label_style, 0);
+    lv_style_set_text_align(&battery_label_style, LV_TEXT_ALIGN_RIGHT);
 
     for (int i = 0; i < BATTERY_SOURCE_COUNT; i++) {
+        int x = (BATTERY_SOURCE_COUNT - 1 - i) * BATTERY_SLOT_WIDTH;
         lv_obj_t *image_canvas = lv_canvas_create(widget->obj);
         lv_obj_t *battery_label = lv_label_create(widget->obj);
 
         lv_canvas_set_buffer(image_canvas, battery_image_buffer[i], BATTERY_CANVAS_WIDTH, BATTERY_CANVAS_HEIGHT, LV_COLOR_FORMAT_L8);
 
-        lv_obj_align(image_canvas, LV_ALIGN_TOP_RIGHT, -(i * BATTERY_SLOT_WIDTH), 0);
-        lv_obj_align_to(battery_label, image_canvas, LV_ALIGN_OUT_LEFT_MID, 0, 0);
+        lv_obj_set_width(battery_label, BATTERY_LABEL_WIDTH);
         lv_obj_add_style(battery_label, &battery_label_style, LV_PART_MAIN);
+        lv_obj_align(battery_label, LV_ALIGN_TOP_LEFT, x, 0);
+        lv_obj_align(image_canvas, LV_ALIGN_TOP_LEFT, x + BATTERY_LABEL_WIDTH + BATTERY_ICON_GAP, 0);
 
         lv_obj_add_flag(image_canvas, LV_OBJ_FLAG_HIDDEN);
         lv_obj_add_flag(battery_label, LV_OBJ_FLAG_HIDDEN);
