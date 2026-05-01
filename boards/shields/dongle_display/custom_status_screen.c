@@ -86,11 +86,7 @@ lv_obj_t *zmk_display_status_screen() {
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_LAYER)
     zmk_widget_layer_status_init(&layer_status_widget, screen);
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_DORORONG)
-    lv_obj_align_to(zmk_widget_layer_status_obj(&layer_status_widget), zmk_widget_dororong_obj(&dororong_widget), LV_ALIGN_BOTTOM_RIGHT, 0, 5);
-#else
     lv_obj_align(zmk_widget_layer_status_obj(&layer_status_widget), LV_ALIGN_BOTTOM_RIGHT, 0, -3);
-#endif
 #endif
 
 #if IS_ENABLED(CONFIG_ZMK_BATTERY)
